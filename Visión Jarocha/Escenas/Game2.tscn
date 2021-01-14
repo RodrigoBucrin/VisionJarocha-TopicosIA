@@ -1,0 +1,144 @@
+[gd_scene load_steps=19 format=2]
+
+[ext_resource path="res://Escenas/KrugerG2.gd" type="Script" id=1]
+[ext_resource path="res://Escenas/Game2.gd" type="Script" id=2]
+[ext_resource path="res://Escenas/Fondo.gd" type="Script" id=3]
+[ext_resource path="res://Imagenes/G2/PinkBackground.png" type="Texture" id=4]
+[ext_resource path="res://Kruger/Kruger_2.png" type="Texture" id=5]
+[ext_resource path="res://Kruger/Kruger_1.png" type="Texture" id=6]
+[ext_resource path="res://Kruger/Kruger_3.png" type="Texture" id=7]
+[ext_resource path="res://Kruger/Kruger_0.png" type="Texture" id=8]
+[ext_resource path="res://Escenas/spawn.gd" type="Script" id=9]
+[ext_resource path="res://Escenas/Cactus.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Escenas/spawn2.gd" type="Script" id=11]
+[ext_resource path="res://Escenas/Cactus2.gd" type="Script" id=12]
+[ext_resource path="res://Fluo Gums.ttf" type="DynamicFontData" id=13]
+
+[sub_resource type="CircleShape2D" id=1]
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ ExtResource( 8 ), ExtResource( 6 ), ExtResource( 5 ), ExtResource( 7 ) ],
+"loop": true,
+"name": "default",
+"speed": 10.0
+} ]
+
+[sub_resource type="SegmentShape2D" id=3]
+a = Vector2( 33.1641, -1021.31 )
+b = Vector2( 6.25983, -1042.99 )
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 0.77955, 10 )
+
+[sub_resource type="DynamicFont" id=5]
+size = 100
+outline_size = 5
+outline_color = Color( 0.270588, 0.780392, 0.372549, 1 )
+font_data = ExtResource( 13 )
+
+[node name="main" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="Fondo1" type="Sprite" parent="."]
+position = Vector2( 510.349, 301.277 )
+scale = Vector2( 10, 7 )
+texture = ExtResource( 4 )
+script = ExtResource( 3 )
+
+[node name="Fondo2" type="Sprite" parent="."]
+position = Vector2( 2111.42, 306.617 )
+scale = Vector2( 10, 7 )
+texture = ExtResource( 4 )
+script = ExtResource( 3 )
+
+[node name="Kruger" type="RigidBody2D" parent="."]
+position = Vector2( 139.99, 509.349 )
+mass = 0.835714
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Kruger"]
+scale = Vector2( 7, 7 )
+shape = SubResource( 1 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="Kruger/CollisionShape2D"]
+frames = SubResource( 2 )
+playing = true
+
+[node name="CACTUS" parent="." instance=ExtResource( 10 )]
+position = Vector2( 1094.02, 497.293 )
+
+[node name="Sprite" parent="CACTUS" index="0"]
+light_mask = 0
+
+[node name="CollisionShape2D" parent="CACTUS/Sprite/Area2D" index="0"]
+position = Vector2( -1.04602, 3.26802 )
+
+[node name="PUNTO" type="Area2D" parent="CACTUS"]
+position = Vector2( 2.48975, -425.316 )
+rotation = -3.14159
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CACTUS/PUNTO"]
+position = Vector2( 118.928, -13.3037 )
+rotation = -1.57886
+scale = Vector2( 10, 0.1 )
+shape = SubResource( 3 )
+
+[node name="CACTUS2" parent="." instance=ExtResource( 10 )]
+position = Vector2( 1096.51, 71.977 )
+rotation = 3.14159
+script = ExtResource( 12 )
+
+[node name="Sprite" parent="CACTUS2" index="0"]
+light_mask = 0
+
+[node name="CollisionShape2D" parent="CACTUS2/Sprite/Area2D" index="0"]
+position = Vector2( -0.198426, 3.6918 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2( 0, 9 )
+scale = Vector2( 100, 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2( 1.47024, 599.649 )
+shape = SubResource( 4 )
+
+[node name="spawn" type="Position2D" parent="."]
+position = Vector2( 896.244, 485.44 )
+script = ExtResource( 9 )
+
+[node name="Timer" type="Timer" parent="spawn"]
+wait_time = 2.0
+autostart = true
+
+[node name="spawn2" type="Position2D" parent="."]
+position = Vector2( 891.662, 34.191 )
+script = ExtResource( 11 )
+
+[node name="Timer" type="Timer" parent="spawn2"]
+wait_time = 2.0
+autostart = true
+
+[node name="PUNTAJE" type="Label" parent="."]
+margin_left = 805.372
+margin_top = 169.271
+margin_right = 929.372
+margin_bottom = 391.271
+custom_fonts/font = SubResource( 5 )
+text = "0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="body_entered" from="CACTUS/Sprite/Area2D" to="CACTUS" method="_on_Area2D_body_entered"]
+[connection signal="body_entered" from="CACTUS/PUNTO" to="Kruger" method="_on_PUNTO_body_entered"]
+[connection signal="body_exited" from="CACTUS/PUNTO" to="Kruger" method="_on_PUNTO_body_exited"]
+[connection signal="body_entered" from="CACTUS2/Sprite/Area2D" to="CACTUS2" method="_on_Area2D_body_entered"]
+[connection signal="timeout" from="spawn/Timer" to="spawn" method="_on_Timer_timeout"]
+[connection signal="timeout" from="spawn2/Timer" to="spawn2" method="_on_Timer_timeout"]
+
+[editable path="CACTUS"]
+
+[editable path="CACTUS2"]

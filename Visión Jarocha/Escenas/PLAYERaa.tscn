@@ -1,0 +1,38 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Kruger/Kruger_2.png" type="Texture" id=1]
+[ext_resource path="res://Kruger/Kruger_0.png" type="Texture" id=2]
+[ext_resource path="res://Kruger/Kruger_3.png" type="Texture" id=3]
+[ext_resource path="res://Escenas/Game2.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Escenas/KruggerMenu.gd" type="Script" id=5]
+[ext_resource path="res://Kruger/Kruger_1.png" type="Texture" id=6]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 2 ), ExtResource( 6 ), ExtResource( 1 ), ExtResource( 3 ) ],
+"loop": true,
+"name": "default",
+"speed": 10.0
+} ]
+
+[sub_resource type="CapsuleShape2D" id=2]
+radius = 24.9268
+height = 495.909
+
+[node name="PLAYER" type="KinematicBody2D"]
+position = Vector2( 671.39, 488.402 )
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_group_": true
+}
+scn2 = ExtResource( 4 )
+
+[node name="Kruger" type="AnimatedSprite" parent="."]
+position = Vector2( 12.0196, 4.97733 )
+scale = Vector2( 6.89958, 6.38454 )
+frames = SubResource( 1 )
+playing = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 4.00452, -8.00903 )
+shape = SubResource( 2 )

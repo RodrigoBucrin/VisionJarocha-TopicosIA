@@ -1,0 +1,141 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://Escenas/Game1.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Kruger/Kruger_3.png" type="Texture" id=3]
+[ext_resource path="res://Kruger/Kruger_2.png" type="Texture" id=4]
+[ext_resource path="res://Imagenes/VJ1.png" type="Texture" id=5]
+[ext_resource path="res://Kruger/Kruger_0.png" type="Texture" id=6]
+[ext_resource path="res://Escenas/Game2.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Imagenes/G2/Cactus.png" type="Texture" id=8]
+[ext_resource path="res://Escenas/KruggerMenu.gd" type="Script" id=9]
+[ext_resource path="res://Kruger/Kruger_1.png" type="Texture" id=10]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 136.213, 137.793 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 8.62518, 10 )
+
+[sub_resource type="SpriteFrames" id=3]
+animations = [ {
+"frames": [ ExtResource( 6 ), ExtResource( 10 ), ExtResource( 4 ), ExtResource( 3 ) ],
+"loop": true,
+"name": "default",
+"speed": 10.0
+} ]
+
+[sub_resource type="CapsuleShape2D" id=4]
+radius = 24.9268
+height = 495.909
+
+[node name="Control" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VJ1" type="Sprite" parent="."]
+position = Vector2( 509.982, 297.579 )
+scale = Vector2( 0.531779, 0.561606 )
+texture = ExtResource( 5 )
+
+[node name="1RA" type="Area2D" parent="."]
+position = Vector2( 165.52, 234.932 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="1RA"]
+self_modulate = Color( 0.960784, 0.960784, 0.960784, 1 )
+position = Vector2( 9.34387, 17.3529 )
+shape = SubResource( 1 )
+
+[node name="ColorRect" type="ColorRect" parent="1RA"]
+visible = false
+margin_left = -123.0
+margin_top = -120.0
+margin_right = 141.0
+margin_bottom = 156.0
+color = Color( 0.772549, 0.137255, 0.137255, 0.329412 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="2DA" type="Area2D" parent="."]
+position = Vector2( 165.52, 234.932 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="2DA"]
+self_modulate = Color( 0.960784, 0.960784, 0.960784, 1 )
+position = Vector2( 340.384, 16.0181 )
+shape = SubResource( 1 )
+
+[node name="ColorRect" type="ColorRect" parent="2DA"]
+visible = false
+margin_left = 211.249
+margin_top = -120.0
+margin_right = 475.249
+margin_bottom = 156.0
+color = Color( 0.772549, 0.137255, 0.137255, 0.329412 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="3RA" type="Area2D" parent="."]
+position = Vector2( 165.52, 234.932 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="3RA"]
+self_modulate = Color( 0.960784, 0.960784, 0.960784, 1 )
+position = Vector2( 679.433, 20.0226 )
+shape = SubResource( 1 )
+
+[node name="ColorRect" type="ColorRect" parent="3RA"]
+visible = false
+margin_left = 548.325
+margin_top = -117.33
+margin_right = 812.325
+margin_bottom = 158.67
+color = Color( 0.772549, 0.137255, 0.137255, 0.329412 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2( -64.256, 55.4365 )
+scale = Vector2( 1, 50 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2( 71.8155, 5.34207 )
+shape = SubResource( 2 )
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2( 1079.75, 4.8381 )
+shape = SubResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 510.368, 246.265 )
+scale = Vector2( 6.3956, 5.73736 )
+texture = ExtResource( 8 )
+
+[node name="PLAYER" type="KinematicBody2D" parent="."]
+position = Vector2( 671.39, 488.402 )
+script = ExtResource( 9 )
+__meta__ = {
+"_edit_group_": true
+}
+scn1 = ExtResource( 2 )
+scn2 = ExtResource( 7 )
+
+[node name="Kruger" type="AnimatedSprite" parent="PLAYER"]
+position = Vector2( 12.0196, 4.97733 )
+scale = Vector2( 6.89958, 6.38454 )
+frames = SubResource( 3 )
+frame = 3
+playing = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PLAYER"]
+position = Vector2( 4.00452, -8.00903 )
+shape = SubResource( 4 )
+[connection signal="body_shape_entered" from="1RA" to="PLAYER" method="_on_1RA_body_shape_entered"]
+[connection signal="body_shape_exited" from="1RA" to="PLAYER" method="_on_1RA_body_shape_exited"]
+[connection signal="body_shape_entered" from="2DA" to="PLAYER" method="_on_2DA_body_shape_entered"]
+[connection signal="body_shape_exited" from="2DA" to="PLAYER" method="_on_2DA_body_shape_exited"]
+[connection signal="body_shape_entered" from="3RA" to="PLAYER" method="_on_3RA_body_shape_entered"]
+[connection signal="body_shape_exited" from="3RA" to="PLAYER" method="_on_3RA_body_shape_exited"]
