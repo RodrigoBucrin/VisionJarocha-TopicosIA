@@ -8,3 +8,5 @@ Usar visión artificial para jugar minijuegos desarrollados en godot.
 
 
 >Se agregó una exportación a HTML para ejecutarse en diversos sistemas operativos.
+
+* El .exe pesa más de lo que github permite , descargar en :
